@@ -8,14 +8,10 @@ import kotlin.test.assertEquals
 
 
 class MockitoSpec : Spek({
-  val mock = Mockito.mock(Greeter::class.java)
+  val mock by memoized { Mockito.mock(Greeter::class.java) }
 
   beforeEachTest {
     Mockito.`when`(mock.greet(anyString())).thenAnswer { "Hello ${it.arguments[0]}" }
-  }
-
-  afterEachTest {
-    Mockito.clearInvocations(mock)
   }
 
   describe("greet(\"mock\")") {
